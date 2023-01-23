@@ -1,14 +1,16 @@
 <template>
   <section>
-    <router-view class="app-main" /> <!-- your routes will load inside of these tags -->    
+    <Navbar></Navbar>
+    <router-view /> <!-- your routes will load inside of these tags -->    
   </section>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted , ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import { useUserStore } from './store/user.js'
+import Navbar from "./components/NavBar.vue"
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -22,7 +24,7 @@ onMounted(async () => {
       router.push({ path: '/auth' });
     } else {
       // continue to dashboard
-      router.push({ path: '/' });
+      router.push({ path: '/dashboard' });
     }
   } catch (e) {
     console.log(e)

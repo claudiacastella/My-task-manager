@@ -8,6 +8,8 @@ export const useTaskStore = defineStore('tasks', {
     tasks: null
   }),
   actions: {
+
+    //Recuperar tareas
     async fetchTasks () {
       const { data: tasks } = await supabase
         .from('tasks')
