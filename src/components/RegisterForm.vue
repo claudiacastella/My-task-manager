@@ -47,7 +47,6 @@
 
 <script setup>
 import { ref, watch } from "vue";
-import { supabase } from "../supabase";
 import { useUserStore } from "../store/user.js";
 import { useRouter } from "vue-router";
 
@@ -58,7 +57,7 @@ const errMsg = ref(null);
 const router = useRouter();
 const loading = ref(false);
 
-const user = useUserStore();
+const userStore = useUserStore();
 
 watch(email, (newEmail) => {
   if (newEmail.length < 6) {
@@ -84,12 +83,8 @@ watch(repeatPassword, (newRepeatPassword) => {
 const register = async () => {
   try {
     loading.value = true;
-    const { error } = await supabase.auth.signUp({
-        email: email.value,
-        password: password.value
-      });
-      if (error) throw error;
-      router.push({ name: "Home" });
+    await userStore.signUp(email.value, password.value);
+    router.push({ name: "Home" });
   } catch (error) {
     errMsg.value = error.message;
     setTimeout(() => {
@@ -98,6 +93,7 @@ const register = async () => {
   } finally {
     loading.value = false;
   }
+  return;
 };
 </script>
 

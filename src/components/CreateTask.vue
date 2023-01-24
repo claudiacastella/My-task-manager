@@ -64,39 +64,48 @@ import { ref, watch } from "vue";
 import { supabase } from "../supabase";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../store/user";
+import { useTaskStore } from "../store/task";
+
+
+const userStore = useUserStore();
+const taskStore = useTaskStore();
 
 const newTitle = ref("New Task");
 const newDetails = ref("Details of the task");
 const newDueDate = ref(null);
 const newPriority = ref(null);
+const newStatus = ref(false);
+
+const errMsg = ref(null);
+
 
 const createTask = async () => {
-    try {
-        const { data, error } = await supabase
-        .from("tasks")
-        .insert([
-            {
-            title: newTitle.value,
-            due_date: newDueDate.value,
-            details: newDetails.value,
-            priority: newPriority.value,
-            },
-        ])
+  try {
+    await taskStore.createTask(
+      {
+        user_id: userStore.user.id,
+        title: newTitle.value,
+        is_complete: newStatus.value,
+        details: newDetails.value,
+        due_date: newDueDate.value,
+        priority: newPriority.value,
+      }
+    );
+    console.log("task successfully created");
+  } catch (error) {
+    if (error instanceof Error) {
+      errMsg.value = error.message;
+      setTimeout(() => {
+        errMsg.value = null;
+      }, 5000);
     }
-    catch (error) {
-        if (error instanceof Error) {
-            errMsg.value = error.message;
-            setTimeout(() => {
-            errMsg.value = null;
-            }, 5000);
-        }
-    }
-    finally {
-        newTitle.value = "New Task";
-        newDetails.value ="Details of the task";
-        newDueDate.value = null;
-        newPriority.value = null;
-    }
+  } finally {
+    newTitle.value = "New Task";
+    newDetails.value = "Details of the task";
+    newDueDate.value = null;
+    newPriority.value = null;
+    newStatus.value = false;
+  }
 };
 </script>
 

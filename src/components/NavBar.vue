@@ -8,24 +8,21 @@
             <ul class=" flex flex-1 justify-end gap-x-10">
                 <router-link class="cursor-pointer" :to="{name : 'Home'}">Home</router-link>
                 <li class="cursor-pointer"><button @click="logOut">Logout</button></li>
-                <button></button>
             </ul>
         </nav>
     </header>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { supabase } from "../supabase";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../store/user";
 
 const userStore = useUserStore();
 const router = useRouter();
 
-function logOut() { 
-    userStore.signOut();
-    router.push({name: "Auth"});
+async function logOut() { 
+    await userStore.signOut();
+    router.push({name: "Home"});
 }
 
 

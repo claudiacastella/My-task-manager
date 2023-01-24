@@ -19,7 +19,8 @@ const { user } = storeToRefs(userStore)
 onMounted(async () => {
   try {
     await userStore.fetchUser() // here we call fetch user
-    if (!user.value) {
+    if ( userStore.user === null ) {
+      console.log("user value is null")
       // redirect them to logout if the user is not there
       router.push({ path: '/auth' });
     } else {
