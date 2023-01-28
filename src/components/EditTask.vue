@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit.prevent="createTask"
+    @submit.prevent="updateTask"
     class="bg-slate-200 p-8 w-2/3 mx-auto rounded-lg shadow-lg m-8"
   >
     <div class="my-4">
@@ -54,57 +54,40 @@
       type="submit"
       class="mt-6 py-2 px-6 rounded-lg self-start text-md bg-emerald-300 hover:bg-emerald-500 text-white font-bold duration-200"
     >
-      Create
+      Save
     </button>
   </form>
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { supabase } from "../supabase";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../store/user";
+import { ref, defineProps } from "vue";
 import { useTaskStore } from "../store/task";
 
+const props = defineProps(["title", "details", "dueDate", "priority"]);
 
-const userStore = useUserStore();
+const newTitle = props.title;
+const newDetails = props.details;
+const newDueDate = props.dueDate;
+const newPriority = props.priority;
+
 const taskStore = useTaskStore();
-
-const newTitle = ref("New Task");
-const newDetails = ref("Details of the task");
-const newDueDate = ref(null);
-const newPriority = ref(null);
-const newStatus = ref(false);
-
 const errMsg = ref(null);
 
-
-const createTask = async () => {
+const updateTask = async () => {
   try {
-    await taskStore.createTask(
-      {
-        user_id: userStore.user.id,
-        title: newTitle.value,
-        is_complete: newStatus.value,
-        details: newDetails.value,
-        due_date: newDueDate.value,
-        priority: newPriority.value,
-      }
-    );
-    alert("Task successfully created");
+    const taskToEdit = {
+      title: newTitle,
+      details: newDetails,
+      due_date: newDueDate,
+      priority: newPriority,
+    };
+    console.log(taskToEdit.title);
+    await taskStore.editTask(taskToEdit);
   } catch (error) {
-    if (error instanceof Error) {
-      errMsg.value = error.message;
-      setTimeout(() => {
-        errMsg.value = null;
-      }, 5000);
-    }
-  } finally {
-    newTitle.value = "New Task";
-    newDetails.value = "Details of the task";
-    newDueDate.value = null;
-    newPriority.value = null;
-    newStatus.value = false;
+    errMsg.value = error.message;
+    setTimeout(() => {
+      errMsg.value = null;
+    }, 5000);
   }
 };
 </script>
