@@ -1,19 +1,18 @@
 <template>
-    <button @click="deleteEl" class="mx-auto">
-                <i class="fa-solid fa-trash w-16 h-16"></i>
-                </button>
+  <button @click="deleteEl" class="mx-auto">
+    <i class="fa-solid fa-trash w-16 h-16"></i>
+  </button>
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
-import { useTaskStore } from '../store/task';
-import { defineEmits } from 'vue';
+import { defineProps, ref } from "vue";
+import { useTaskStore } from "../store/task";
+import { defineEmits } from "vue";
 
 const props = defineProps(["taskId"]);
-const emits = defineEmits(["reCheck"])
+const emits = defineEmits(["reCheck"]);
 
 const taskId = props.taskId;
-console.log(taskId);
 
 const taskStore = useTaskStore();
 const errMsg = ref(null);
@@ -31,11 +30,6 @@ const deleteEl = async () => {
     emits("reCheck");
   }
 };
-
-
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

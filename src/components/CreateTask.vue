@@ -65,6 +65,7 @@ import { supabase } from "../supabase";
 import { useRouter } from "vue-router";
 import { useUserStore } from "../store/user";
 import { useTaskStore } from "../store/task";
+import { defineEmits } from "vue";
 
 
 const userStore = useUserStore();
@@ -77,6 +78,7 @@ const newPriority = ref(null);
 const newStatus = ref(false);
 
 const errMsg = ref(null);
+
 
 
 const createTask = async () => {

@@ -71,12 +71,12 @@ export const useTaskStore = defineStore("tasks", {
     },
 
     // Cambiar status de tarea
-    async stateTask(el) {
+    async stateTask(el, state) {
       try {
         const { data, error } = await supabase
           .from("tasks")
-          .update({ is_complete: !el.is_complete })
-          .eq("id", el.id);
+          .update({ is_complete: state })
+          .eq("id", el);
         if (error) throw error;
         this.fetchTasks();
         return data;

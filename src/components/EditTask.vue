@@ -10,7 +10,7 @@
       <input
         type="text"
         class="w-2/3 p-2 rounded-lg border-2 border-gray-400 focus:outline-none focus:border-blue-500"
-        v-model="newTitle"
+        v-model="title"
         required
       />
     </div>
@@ -21,7 +21,7 @@
       <input
         type="text"
         class="w-2/3 p-2 rounded-lg border-2 border-gray-400 focus:outline-none focus:border-blue-500"
-        v-model="newDetails"
+        v-model="details"
         required
       />
     </div>
@@ -32,7 +32,7 @@
       <input
         type="date"
         class="w-2/3 p-2 rounded-lg border-2 border-gray-400 focus:outline-none focus:border-blue-500"
-        v-model="newDueDate"
+        v-model="dueDate"
         required
       />
     </div>
@@ -42,7 +42,7 @@
       >
       <select
         class="w-2/3 p-2 rounded-lg border-2 border-gray-400 focus:outline-none focus:border-blue-500"
-        v-model="newPriority"
+        v-model="priority"
         required
       >
         <option value="high">High</option>
@@ -60,26 +60,53 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, watch } from "vue";
 import { useTaskStore } from "../store/task";
 
 const props = defineProps(["title", "details", "dueDate", "priority"]);
 
-const newTitle = props.title;
-const newDetails = props.details;
-const newDueDate = props.dueDate;
-const newPriority = props.priority;
+const title = props.title;
+const details = props.details;
+const dueDate = props.dueDate;
+const priority = props.priority;
+
+const editedTitle = ref();
+const editedDetails = ref();
+const editedDueDate = ref();
+const editedPriority = ref();
 
 const taskStore = useTaskStore();
 const errMsg = ref(null);
 
+watch(title, (newTitle) => {
+  if (newTitle !== title) {
+    editedTitle.value = newTitle;
+  } else editedTitle.value = title;
+});
+
+watch(details, (newDetails) => {
+  if (newDetails !== details) {
+    editedDetails.value = newDetails;
+  } else editedDetails.value = details;
+});
+watch(dueDate, (newDueDate) => {
+  if (newDueDate !== dueDate) {
+    editedDueDate.value = newDueDate;
+  } else editedDueDate.value = dueDate;
+});
+watch(priority, (newPriority) => {
+  if (newPriority !== priority) {
+    editedPriority.value = newPriority;
+  } else editedPriority.value = priority;
+});
+
 const updateTask = async () => {
   try {
     const taskToEdit = {
-      title: newTitle,
-      details: newDetails,
-      due_date: newDueDate,
-      priority: newPriority,
+      title: editedTitle,
+      details: editedDetails,
+      due_date: editedDueDate,
+      priority: editedPriority,
     };
     console.log(taskToEdit.title);
     await taskStore.editTask(taskToEdit);
