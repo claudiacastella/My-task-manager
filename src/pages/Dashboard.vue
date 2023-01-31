@@ -4,7 +4,7 @@
 
         
         
-        <button class="my-2 p-2 bg-green-400 rounded-sm ml-3" @click="create" v-if="!createOk">
+        <button class="my-2 ml-8 p-2  py-2 px-6 rounded-lg self-start text-md bg-stone-500 hover:bg-stone-400 text-white font-bold duration-200" @click="create" v-if="!createOk">
             <i class="fa-solid fa-plus"></i>
             Create new task
         </button>

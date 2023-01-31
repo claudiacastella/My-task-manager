@@ -1,14 +1,16 @@
 <template>
   <div
-    class="bg-slate-200 p-8 w-2/3 mx-auto rounded-lg shadow-lg m-8 relative mt-0"
+    class="bg-stone-100 p-8 w-2/3 mx-auto rounded-lg shadow-lg m-8 relative mt-0"
   >
     <button @click="$emit('close')" class="absolute right-4 top-4">
       <i class="fa-solid fa-xmark"></i>
     </button>
 
     <form @submit.prevent="createTask">
-      <div class="my-4">
-        <label for="title" class="text-xl font-bold my-2 mr-2 text-gray-700"
+      <h3 class="text-xl font-bold">New Task</h3>
+      <div>
+        <div class="my-4">
+        <label for="title" class="text-lg font-bold my-2 mr-2 text-gray-700 "
           >Title</label
         >
         <input
@@ -21,7 +23,7 @@
       <div class="my-4">
         <label
           for="description"
-          class="text-xl font-bold my-2 mr-2 text-gray-700"
+          class="text-lg font-bold my-2 mr-2 text-gray-700 "
           >Details</label
         >
         <input
@@ -31,8 +33,10 @@
           required
         />
       </div>
-      <div class="my-4">
-        <label for="dueDate" class="text-xl font-bold my-2 mr-2 text-gray-700"
+      </div>
+      <div>
+        <div class="my-4">
+        <label for="dueDate" class="text-lg font-bold my-2 mr-2 text-gray-700"
           >Due Date</label
         >
         <input
@@ -43,7 +47,7 @@
         />
       </div>
       <div class="my-4">
-        <label for="priority" class="text-xl font-bold my-2 mr-2 text-gray-700"
+        <label for="priority" class="text-lg font-bold my-2 mr-2 text-gray-700"
           >Priority</label
         >
         <select
@@ -51,14 +55,14 @@
           v-model="newPriority"
           required
         >
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
-      </div>
+      </div></div>
       <button
         type="submit"
-        class="mt-6 py-2 px-6 rounded-lg self-start text-md bg-emerald-300 hover:bg-emerald-500 text-white font-bold duration-200"
+        class="mt-6 py-2 px-6 rounded-lg self-start text-md bg-stone-500 hover:bg-stone-400 text-white font-bold duration-200"
       >
         Create
       </button>

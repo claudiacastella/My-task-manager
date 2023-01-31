@@ -1,6 +1,6 @@
 <template>
   <button @click="deleteEl" class="mx-auto">
-    <i class="fa-solid fa-trash w-16 h-16"></i>
+    <i class="fa-solid fa-trash w-8 h-8"></i>
   </button>
 </template>
 

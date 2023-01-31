@@ -1,6 +1,6 @@
 <template>
   <button @click="stateTask" class="mx-auto">
-    <i :class="checked" class="fa-circle-check w-16 h-16 "> </i>
+    <i :class="checked" class="fa-circle-check w-8 h-8 "> </i>
   </button>
 </template>
 
@@ -23,7 +23,7 @@ const errMsg = ref(null);
 const checked = ref(null);
 if (state === false) {
     checked.value = "fa-regular";
-} else checked.value = "fa-solid";
+} else checked.value = "fa-solid text-green-500";
 
 // Marcar como completado/desmarcar
 const stateTask = async () => {
