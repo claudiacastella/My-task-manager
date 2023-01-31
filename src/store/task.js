@@ -6,6 +6,8 @@ import { supabase } from "../supabase";
 export const useTaskStore = defineStore("tasks", {
   state: () => ({
     tasks: null,
+    tasksCompleted: null,
+    tasksToDo: null,
   }),
   actions: {
     // Recuperar tareas
@@ -16,6 +18,8 @@ export const useTaskStore = defineStore("tasks", {
         .order("id", { ascending: false });
       if (error) throw error;
       this.tasks = tasks;
+      this.tasksCompleted = this.tasks.filter((task) => task.is_complete);
+      this.tasksToDo = this.tasks.filter((task) => !task.is_complete);
     },
 
     // Crear tarea

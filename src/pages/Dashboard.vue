@@ -1,7 +1,7 @@
 <template>
-    <div id="tasks" class="flex-column bg-orange-100 h-auto">
+    <div id="tasks" class="container mx-auto pt-4 flex-column h-auto" >
         <div class="errorMsg" v-if="errorMsg">{{ errorMsg.value }}</div>
-        <!-- <div class="statusMsg" v-if="statusMsg">{{ statusMsg.value }}</div> -->
+
         
         
         <button class="my-2 p-2 bg-green-400 rounded-sm ml-3" @click="create" v-if="!createOk">
@@ -10,7 +10,7 @@
         </button>
 
         <!-- Aquí el componente de crear tareas -->
-        <CreateTask v-if="createOk"></CreateTask>
+        <CreateTask v-if="createOk" @close="closeCreate"></CreateTask>
    
         <!-- Aquí el componente de listado de tareas -->
         <Tasks></Tasks>
@@ -29,8 +29,13 @@ const createOk = ref(false);
 function create() {
     createOk.value = true;
 }
+function closeCreate(){
+    createOk.value = false;
+}
 
+function refreshTasks(){
 
+}
 
 </script>
 
@@ -40,9 +45,5 @@ function create() {
   height: 50px;
   padding-top: 20px;
 }
-/* .statusMsg {
-    color:darkcyan;
-    height: 50px;
-    padding-top: 20px;
-} */
+
 </style>
