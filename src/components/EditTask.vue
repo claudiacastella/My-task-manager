@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, watchEffect } from "vue";
+import { ref, defineProps, watch } from "vue";
 import { useTaskStore } from "../store/task";
 import { defineEmits } from "vue";
 
@@ -91,30 +91,32 @@ const editedPriority = ref();
 const taskStore = useTaskStore();
 const errMsg = ref(null);
 
-watchEffect((newTitle, title) => {
-  editedTitle.value = newTitle;
+watch( title, (newTitle) => {
+  if (newTitle !== title){
+    editedTitle.value = newTitle;
+  }
 });
-watchEffect((newDetails, details) => {
+watch((newDetails, details) => {
   editedDetails.value = newDetails;
 });
-watchEffect((newDueDate, dueDate) => {
+watch((newDueDate, dueDate) => {
   editedDueDate.value = newDueDate;
 });
-watchEffect((newPriority, priority) => {
+watch((newPriority, priority) => {
   editedPriority.value = newPriority;
 });
 
 const updateTask = async () => {
   try {
     console.log(editedTitle.value);
-    const taskToEdit = {
-      id: taskId,
-      title: editedTitle.value,
-      details: editedDetails.value,
-      due_date: editedDueDate.value,
-      priority: editedPriority.value,
-    };
-    console.log(taskToEdit.title);
+    // const taskToEdit = {
+    //   id: taskId,
+    //   title: editedTitle.value,
+    //   details: editedDetails.value,
+    //   due_date: editedDueDate.value,
+    //   priority: editedPriority.value,
+    // };
+    // console.log(taskToEdit.title);
     // await taskStore.editTask(taskToEdit);
   } catch (error) {
     errMsg.value = error.message;
