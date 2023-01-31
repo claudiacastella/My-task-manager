@@ -46,12 +46,15 @@ export const useTaskStore = defineStore("tasks", {
     // Editar tarea
     async editTask(taskToEdit) {
       try {
-        const { data, error } = await supabase.from("tasks").update({
+        const { data, error } = await supabase
+        .from("tasks")
+        .update({
           title: taskToEdit.title,
           details: taskToEdit.details,
           due_date: taskToEdit.due_date,
           priority: taskToEdit.priority,
-        });
+        })
+        .eq("id",taskToEdit.id);
         if (error) throw error;
         return data;
       } catch (error) {

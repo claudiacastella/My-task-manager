@@ -9,7 +9,7 @@
 
     <!-- Si no hay tareas, blank page -->
     <div v-if="blankPage" class=" max-w-sm mt-8 p-4 mx-auto">
-      <p>Wow! You don't have any task yet.<br />Start creating one</p>
+      <p>Welcome to our platform, where you can stay organized and achieve your goals with ease! Our platform provides you with a simple and intuitive way to manage your tasks and stay on top of your to-do list. Whether you are a busy professional, a student, or just looking to streamline your daily routine, our platform has everything you need to get things done. With features like task prioritization, deadline reminders, and progress tracking, you'll never miss a beat. So why wait? Start organizing your tasks and taking control of your day today!</p>
     </div>
 
     <!-- Si hay tareas, listados -->
@@ -17,6 +17,7 @@
       <div class="absolute mt-8 pt-4 px-8 container mx-auto">
         <EditTask
           v-if="editForm"
+          :id="taskInfo.id"
           :title="taskInfo.title"
           :details="taskInfo.details"
           :dueDate="taskInfo.due_date"

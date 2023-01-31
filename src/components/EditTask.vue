@@ -53,9 +53,9 @@
           v-model="priority"
           required
         >
-          <option value="high">High</option>
-          <option value="medium">Medium</option>
-          <option value="low">Low</option>
+          <option value="High">High</option>
+          <option value="Hedium">Medium</option>
+          <option value="Low">Low</option>
         </select>
       </div>
       <button
@@ -75,8 +75,9 @@ import { defineEmits } from "vue";
 
 const emit = defineEmits(["close"]);
 
-const props = defineProps(["title", "details", "dueDate", "priority"]);
+const props = defineProps(["id","title", "details", "dueDate", "priority"]);
 
+const taskId = props.id;
 const title = props.title;
 const details = props.details;
 const dueDate = props.dueDate;
@@ -93,33 +94,28 @@ const errMsg = ref(null);
 watchEffect((newTitle, title) => {
   editedTitle.value = newTitle;
 });
-
-// watch(details, (newDetails) => {
-//   if (newDetails !== details) {
-//     editedDetails.value = newDetails;
-//   } else editedDetails.value = details;
-// });
-// watch(dueDate, (newDueDate) => {
-//   if (newDueDate !== dueDate) {
-//     editedDueDate.value = newDueDate;
-//   } else editedDueDate.value = dueDate;
-// });
-// watch(priority, (newPriority) => {
-//   if (newPriority !== priority) {
-//     editedPriority.value = newPriority;
-//   } else editedPriority.value = priority;
-// });
+watchEffect((newDetails, details) => {
+  editedDetails.value = newDetails;
+});
+watchEffect((newDueDate, dueDate) => {
+  editedDueDate.value = newDueDate;
+});
+watchEffect((newPriority, priority) => {
+  editedPriority.value = newPriority;
+});
 
 const updateTask = async () => {
   try {
+    console.log(editedTitle.value);
     const taskToEdit = {
-      title: editedTitle,
-      details: editedDetails,
-      due_date: editedDueDate,
-      priority: editedPriority,
+      id: taskId,
+      title: editedTitle.value,
+      details: editedDetails.value,
+      due_date: editedDueDate.value,
+      priority: editedPriority.value,
     };
     console.log(taskToEdit.title);
-    await taskStore.editTask(taskToEdit);
+    // await taskStore.editTask(taskToEdit);
   } catch (error) {
     errMsg.value = error.message;
     setTimeout(() => {
