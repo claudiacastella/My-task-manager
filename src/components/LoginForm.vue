@@ -1,8 +1,8 @@
 <template>
-  <div class="errorMsg" v-if="showError">{{ errMsg }}</div>
+  <div class="errorMsg text-center" v-if="showError">{{ errMsg }}</div>
   <form
     @submit.prevent="signIn"
-    class="bg-slate-200 p-8 max-w-md mx-auto rounded-lg shadow-lg m-8"
+    class="bg-stone-100 p-8 max-w-md mx-auto rounded-lg shadow-lg m-8"
   >
     <h1 class="text-3xl font-bold mb-8 mx-auto">Login</h1>
     <div class="mb-4">
@@ -29,7 +29,7 @@
     </div>
     <input
       type="submit"
-      class="mt-6 py-2 px-6 rounded-lg self-start text-md bg-emerald-300 hover:bg-emerald-500 text-white font-bold duration-200"
+      class="mt-6 py-2 px-6 rounded-lg self-start text-md bg-stone-500 hover:bg-stone-400 text-white font-bold duration-200"
       :value="loading ? 'Loading' : 'Login'"
       :disabled="loading"
     />
@@ -85,9 +85,5 @@ const signIn = async () => {
 </script>
 
 <style>
-.errorMsg {
-  color: chocolate;
-  height: 50px;
-  padding-top: 20px;
-}
+
 </style>

@@ -1,14 +1,19 @@
 <template class="bg-orange-100">
   <div class="container relative">
+    <!-- Botón para refrescar el componente de los listados -->
     <div class="absolute top-4 right-12">
-        <button @click="reCheck" class="">
-          <i class="fa-solid fa-arrows-rotate"></i>
-        </button>
+      <button @click="reCheck" class="">
+        <i class="fa-solid fa-arrows-rotate"></i>
+      </button>
     </div>
-    <div v-if="blankPage" class="mb-4 p-4 mx-auto">
+
+    <!-- Si no hay tareas, blank page -->
+    <div v-if="blankPage" class=" max-w-sm mt-8 p-4 mx-auto">
       <p>Wow! You don't have any task yet.<br />Start creating one</p>
     </div>
-    <div class="">
+
+    <!-- Si hay tareas, listados -->
+    <div v-else class="">
       <div class="absolute mt-8 pt-4 px-8 container mx-auto">
         <EditTask
           v-if="editForm"
@@ -19,6 +24,7 @@
           @close="closeEdit"
         ></EditTask>
 
+        <!-- Listado de tareas To Do-->
         <div class="mb-12">
           <h3 class="text-xl border-b-4 mb-6">Task To Do</h3>
           <div
@@ -50,6 +56,7 @@
           </div>
         </div>
 
+        <!-- Listado de tareas completadas-->
         <div>
           <h3 class="text-xl border-b-4 mb-6">Tasks Completed</h3>
           <div
@@ -98,7 +105,7 @@ const tasksArray = ref([]);
 const tasksToDo = ref([]);
 const tasksCompleted = ref([]);
 
-const blankPage = ref(false);
+const blankPage = ref(null);
 const errMsg = ref(null);
 
 const taskInfo = ref([]);
@@ -111,8 +118,8 @@ function openEdit(el) {
   taskInfo.value = el;
 }
 
-function closeEdit(){
-    editForm.value = false;
+function closeEdit() {
+  editForm.value = false;
 }
 
 // Checkear tareas
@@ -122,7 +129,7 @@ onMounted(async () => {
     tasksArray.value = taskStore.tasks;
     tasksToDo.value = taskStore.tasksToDo;
     tasksCompleted.value = taskStore.tasksCompleted;
-    if (tasksArray.length === 0) {
+    if (tasksArray.value.length === 0) {
       blankPage.value = true;
     } else blankPage.value = false;
   } catch (error) {
@@ -135,6 +142,8 @@ onMounted(async () => {
 const reCheck = async () => {
   await taskStore.fetchTasks();
   tasksArray.value = taskStore.tasks;
+  tasksToDo.value = taskStore.tasksToDo;
+  tasksCompleted.value = taskStore.tasksCompleted;
 };
 </script>
 

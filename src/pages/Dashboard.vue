@@ -33,10 +33,6 @@ function closeCreate(){
     createOk.value = false;
 }
 
-function refreshTasks(){
-
-}
-
 </script>
 
 <style scoped>

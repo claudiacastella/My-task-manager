@@ -1,4 +1,6 @@
 <template>
+  <div class="errorMsg text-center" v-if="errMsg">{{ errMsg }}</div>
+  <div class="successMsg text-center" v-if="sucMsg">{{ sucMsg }}</div>
   <div
     class="bg-stone-100 p-8 w-2/3 mx-auto rounded-lg shadow-lg m-8 relative mt-0"
   >
@@ -89,6 +91,7 @@ const newPriority = ref(null);
 const newStatus = ref(false);
 
 const errMsg = ref(null);
+const sucMsg = ref(null);
 
 const createTask = async () => {
   try {
@@ -100,7 +103,10 @@ const createTask = async () => {
       due_date: newDueDate.value,
       priority: newPriority.value,
     });
-    alert("Task successfully created");
+    sucMsg.value="Task successfully created";
+    setTimeout(() => {
+        sucMsg.value = null;
+      }, 5000);
   } catch (error) {
     if (error instanceof Error) {
       errMsg.value = error.message;
