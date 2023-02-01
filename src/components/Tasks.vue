@@ -24,7 +24,6 @@
     <!-- Si hay tareas, listados -->
     <div v-else class="">
       <div class="absolute mt-8 pt-4 px-8 container mx-auto">
-
         <!-- Listado de tareas To Do-->
         <div class="mb-12">
           <h3 class="text-xl border-b-4 mb-6">Tasks To Do</h3>
@@ -43,14 +42,17 @@
                 <p id="details" class="">{{ el.details }}</p>
               </div>
             </div>
-            <div v-else class="ml-12 bg-stone-100 w-full">
+            <div v-else class="mx-24 bg-stone-100 w-full relative p-8">
+              <button @click="el.edit = false" class="absolute right-4 top-4">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
               <form @submit.prevent="updateTask(el)">
-                <div class="flex flex-row m-8">
-                  <div class="flex flex-col flex-none mr-8">
+                <div class="flex flex-row mr-8">
+                  <div class="flex flex-col flex-none mr-8 bg-white rounded">
                     <input
                       type="date"
                       class="max-w-fit p-2 rounded-lg"
-                      v-model="el.dueDate"
+                      v-model="el.due_date"
                       required
                     />
 
@@ -65,10 +67,10 @@
                     </select>
                   </div>
 
-                  <div class="flex flex-col grow">
+                  <div class="flex flex-col grow bg-white rounded">
                     <input
                       type="text"
-                      class="p-2 rounded-lg"
+                      class="p-2 border-b-2 border-stone-100"
                       v-model="el.title"
                       required
                     />
@@ -82,18 +84,19 @@
                     </textarea>
                   </div>
                 </div>
-
+                
                 <button
                   type="submit"
-                  @click="saveEl(el)"
-                  class="ml-8 mb-8 py-2 px-6 rounded-lg self-start text-md bg-stone-500 hover:bg-stone-400 text-white font-bold duration-200"
+                  class="mt-8 py-2 px-6 rounded-lg self-start text-md bg-stone-500 hover:bg-stone-400 text-white font-bold duration-200"
                 >
                   Save
                 </button>
+                <div class="errorMsg text-center inline" v-if="errMsg">{{ errMsg }}</div>
+                <div class="succesMsg text-center inline" v-if="sucMsg">{{ sucMsg }}</div>
               </form>
             </div>
 
-            <div id="edit" class="flex-row flex-nowrap sm:flex-col min-w-fit">
+            <div id="edit" class="flex-row flex-nowrap sm:flex-col min-w-fit" v-if="!el.edit">
               <button class="mx-auto" @click="el.edit = true">
                 <i class="fa-regular fa-pen-to-square w-8 h-8"></i>
               </button>
@@ -146,7 +149,6 @@
 <script setup>
 import { onMounted, ref, watch, toRefs } from "vue";
 import { useTaskStore } from "../store/task";
-import EditTask from "./EditTask.vue";
 import DeleteTask from "./DeleteTask.vue";
 import StatusTask from "./StatusTask.vue";
 
@@ -158,20 +160,7 @@ const tasksCompleted = ref([]);
 
 const blankPage = ref(null);
 const errMsg = ref(null);
-
-const taskInfo = ref([]);
-
-// Pasar a vista edición
-const editForm = ref(false);
-
-function openEdit(el) {
-  editForm.value = true;
-  taskInfo.value = el;
-}
-
-function closeEdit() {
-  editForm.value = false;
-}
+const sucMsg = ref(null);
 
 // Checkear tareas
 onMounted(async () => {
@@ -196,6 +185,27 @@ const reCheck = async () => {
   tasksToDo.value = taskStore.tasksToDo;
   tasksCompleted.value = taskStore.tasksCompleted;
 };
+
+// Funcion update Task
+const updateTask = async (el) => {
+  try {
+    await taskStore.editTask(el);
+    sucMsg.value="Task successfully edited";
+    setTimeout(() => {
+        sucMsg.value = null;
+      }, 5000);
+  } catch (error) {
+    errMsg.value = error.message;
+    setTimeout(() => {
+      errMsg.value = null;
+    }, 5000);
+  } finally {
+    setTimeout(() => {
+      el.edit = false;
+      }, 5000);
+  }
+};
+
 </script>
 
 <style lang="scss" scoped></style>
