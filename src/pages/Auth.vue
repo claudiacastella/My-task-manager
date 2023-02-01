@@ -15,6 +15,15 @@
         </button>
       </div>
     </div>
+    <div class="flex flex-col items-center max-w-md mx-auto">
+      <p>Have you forgotten your password?</p>
+      <button v-if="!forgotten" @click="forgotten = true" class="cursor-pointer text-stone-400 font-bold p-2 bg-white rounded-lg">Recover account</button>
+      <div v-if="forgotten">
+        <input type="email" v-model="email" placeholder="Registered email"/>
+        <button type="submit" @click="sendEmail(email)" class="cursor-pointer text-stone-400 font-bold p-2 bg-white rounded-lg">Send email</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -22,6 +31,7 @@
 import { ref } from "vue";
 import Login from "../components/LoginForm.vue";
 import Register from "../components/RegisterForm.vue";
+import { useUserStore } from "../store/user";
 
 const login = ref(true);
 const buttonTitle = ref("Register");
@@ -35,6 +45,28 @@ function change() {
     ? (account.value = "Already have an account?")
     : (account.value = "Haven't registered yet?");
 }
+
+const forgotten = ref(false);
+const userStore = useUserStore();
+const email = ref(null);
+
+const sendEmail = async () => {
+  try {
+    await userStore.sendEmail(email.value);
+    //router.push({ name: "Dashboard" });
+  } catch (error) {
+    console.log("error to send email");
+    } 
+};
+
+// beforeRouteEnter(to, from, next);{
+//     if (from.query.param) {
+//       next("/new-page");
+//     } else {
+//       next();
+//     };
+//   };
+
 </script>
 
 <style scoped></style>
