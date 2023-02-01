@@ -1,6 +1,6 @@
 <template>
   <div class="errorMsg text-center" v-if="errMsg">{{ errMsg }}</div>
-  <div class="successMsg text-center" v-if="sucMsg">{{ sucMsg }}</div>
+  <div class="succesMsg text-center" v-if="sucMsg">{{ sucMsg }}</div>
   <div
     class="bg-stone-100 p-8 w-2/3 mx-auto rounded-lg shadow-lg m-8 relative mt-0"
   >

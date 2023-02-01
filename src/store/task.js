@@ -56,6 +56,7 @@ export const useTaskStore = defineStore("tasks", {
         })
         .eq("id",taskToEdit.id);
         if (error) throw error;
+        this.fetchTasks();
         return data;
       } catch (error) {
         throw error;
