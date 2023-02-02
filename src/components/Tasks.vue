@@ -64,7 +64,7 @@
                       required
                     >
                       <option value="High">High</option>
-                      <option value="Hedium">Medium</option>
+                      <option value="Medium">Medium</option>
                       <option value="Low">Low</option>
                     </select>
                   </div>

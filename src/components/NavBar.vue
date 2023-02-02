@@ -2,7 +2,7 @@
     <header class="bg-stone-800 text-white font-serif">
         <nav class="container mx-auto py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
             <div id="logo" class="flex items-center gap-x-4">
-                <h1 class="text-lg">CCG Task Manager</h1>
+                <h1 class="text-lg">의무 Uimu - My Task Manager</h1>
             </div>
             <ul class="flex flex-1 justify-end gap-x-12">
                 <router-link class="cursor-pointer" :to="{name : 'Home'}">Home</router-link>
