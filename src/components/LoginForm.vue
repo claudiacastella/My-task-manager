@@ -1,5 +1,5 @@
 <template>
-  <div class="errorMsg text-center" v-if="showError">{{ errMsg }}</div>
+  <div class="errorMsg text-center" v-if="errMsg">{{ errMsg }}</div>
   <form
     @submit.prevent="signIn"
     class="bg-stone-100 p-8 max-w-md mx-auto rounded-lg shadow-lg m-8"
@@ -43,7 +43,6 @@ import { useUserStore } from "../store/user";
 
 const userStore = useUserStore();
 const router = useRouter();
-const showError = ref(false);
 const email = ref(null);
 const password = ref(null);
 const errMsg = ref(null);
@@ -52,15 +51,12 @@ const loading = ref(false);
 
 watch(email, (newEmail) => {
   if (newEmail.length < 6) {
-    showError.value = true;
     errMsg.value = "The email should have at least 6 characters.";
   } else if (!newEmail.includes("@")) {
-    showError.value = true;
     errMsg.value = "The email should have an @";
   } else if (newEmail.indexOf(".") < newEmail.indexOf("@")) {
-    showError.value = true;
     errMsg.value = "The email should have a . after the @";
-  } else showError.value = false;
+  } else errMsg.value = false;
   setTimeout(() => {
     errMsg.value = null;
   }, 5000);
@@ -74,13 +70,15 @@ const signIn = async () => {
   } catch (error) {
     if (error instanceof Error) {
       errMsg.value = error.message;
+      console.log(error.message)
       setTimeout(() => {
         errMsg.value = null;
-      }, 5000);
+      }, 10000);
     }
   } finally {
     loading.value = false;
   }
+  return;
 };
 </script>
 

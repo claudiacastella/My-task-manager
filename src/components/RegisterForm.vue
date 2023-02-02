@@ -1,5 +1,5 @@
 <template>
-  <div class="errorMsg text-center" v-if="showError">{{ errMsg }}</div>
+  <div class="errorMsg text-center" v-if="errMsg">{{ errMsg }}</div>
   <form
     @submit.prevent="register"
     class="bg-stone-100 p-8 max-w-md mx-auto rounded-lg shadow-lg m-8"
