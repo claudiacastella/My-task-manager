@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-stone-800 text-white">
+    <header class="bg-stone-800 text-white font-serif">
         <nav class="container mx-auto py-5 px-4 flex flex-col gap-4 items-center sm:flex-row">
             <div id="logo" class="flex items-center gap-x-4">
                 <h1 class="text-lg">CCG Task Manager</h1>
