@@ -1,17 +1,18 @@
 <template class="bg-orange-100">
   <div class="container relative">
     <!-- Botón para refrescar el componente de los listados -->
-    <div class="absolute top-4 right-12">
+    <div class="absolute top-4 right-12" v-if="!blankPage">
       <button @click="reCheck" class="">
         <i class="fa-solid fa-arrows-rotate"></i>
       </button>
     </div>
 
     <!-- Si no hay tareas, blank page -->
-    <div v-if="blankPage" class="max-w-sm mt-8 p-4 mx-auto">
-      <p>
-        Welcome to our platform, where you can stay organized and achieve your
-        goals with ease! Our platform provides you with a simple and intuitive
+    <div v-if="blankPage" class="max-w-lg mt-8 p-4 mx-auto">
+      <h3 class="text-lg my-4">Welcome to our platform, where you can stay organized and achieve your
+        goals with ease!</h3>
+      <p class="max-w-sm">
+        Our platform provides you with a simple and intuitive
         way to manage your tasks and stay on top of your to-do list. Whether you
         are a busy professional, a student, or just looking to streamline your
         daily routine, our platform has everything you need to get things done.
@@ -19,6 +20,7 @@
         tracking, you'll never miss a beat. So why wait? Start organizing your
         tasks and taking control of your day today!
       </p>
+      
     </div>
 
     <!-- Si hay tareas, listados -->
