@@ -8,23 +8,23 @@
     </div>
 
     <!-- Si no hay tareas, blank page -->
-    <div v-if="blankPage" class="max-w-lg mt-8 p-4 mx-auto">
-      <h3 class="text-lg my-4">Welcome to our platform, where you can stay organized and achieve your
-        goals with ease!</h3>
-      <p class="max-w-sm">
-        Our platform provides you with a simple and intuitive
-        way to manage your tasks and stay on top of your to-do list. Whether you
-        are a busy professional, a student, or just looking to streamline your
-        daily routine, our platform has everything you need to get things done.
-        With features like task prioritization, deadline reminders, and progress
-        tracking, you'll never miss a beat. So why wait? Start organizing your
-        tasks and taking control of your day today!
-      </p>
-      
+    <div v-if="blankPage" class="max-w-3xl mt-8 p-4 mx-auto flex ">
+      <div class="w-1/2 mr-8">
+        <h3 class="max-w-sm text-lg my-8 leading-8 font-semibold ">Welcome to our platform,<br> where you can stay organized and achieve your
+          goals with ease!</h3>
+        <p class="max-w-sm leading-8 ">
+          Whether you are a busy professional, a student, or just looking to streamline your
+          daily routine, our platform has everything you need to get things done.<br>
+          So why wait? Start organizing your tasks and taking control of your day today!
+        </p>
+      </div>
+      <div class="w-1/2">
+        <img src="../assets/pexels-jess-bailey-designs-768472.jpg" alt="To-do list image" class="mt-12">
+      </div>
     </div>
 
     <!-- Si hay tareas, listados -->
-    <div v-else class="">
+    <div v-else class="font-serif">
       <div class="absolute mt-8 pt-4 px-8 container mx-auto">
         <!-- Listado de tareas To Do-->
         <div class="mb-12">

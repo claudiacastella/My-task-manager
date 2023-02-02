@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Merienda', 'Arial', 'sans-serif'],
-        'serif': ['Satisfy', 'Georgia']
+        'sans': [ 'Arial', 'sans-serif'],
+        'serif': ['Merienda','Satisfy', 'Georgia']
       },
     },
   },
